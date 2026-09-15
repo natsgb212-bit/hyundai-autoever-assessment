@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hyundai Autoever Mexico | MES / System Administrator</title>
+<link rel="stylesheet" href="css/styles.css"></head>
+<body>
+<header><b>HYUNDAI AUTOEVER MEXICO</b><span>Technical Assessment</span></header>
+<main>
+<section id="intro" class="card">
+<small>MES / SYSTEM ADMINISTRATOR</small><h1>Technical Assessment</h1>
+<p>Please answer all questions based on your own technical knowledge and experience.</p>
+<div class="stats"><div><b>29</b><span>Questions</span></div><div><b>45</b><span>Minutes</span></div><div><b>70%</b><span>Recommended pass</span></div></div>
+<div class="notice">Some questions require a written technical explanation. Written answers will be reviewed by the technical team.</div>
+<h2>Candidate information</h2>
+<form id="form">
+<label>Full name<input id="name" required maxlength="120"></label>
+<label>Email<input id="email" type="email" required maxlength="160"></label>
+<label>Relevant experience (years)<input id="exp" type="number" min="0" max="50" step=".5" required></label>
+<button type="submit">Start assessment</button>
+</form></section>
+
+<section id="exam" class="hidden">
+<div class="examtop"><div><small id="section"></small><b id="count"></b></div><strong id="clock">45:00</strong></div>
+<div class="bar"><i id="bar"></i></div>
+<div id="q" class="card question"></div>
+<div class="nav"><button id="prev" class="light">Previous</button><button id="next">Next</button></div>
+</section>
+
+<section id="done" class="card hidden"><small>SUBMISSION RECEIVED</small><h1>Thank you.</h1>
+<p>Your technical assessment has been submitted successfully and will be reviewed by our recruitment team.</p></section>
+</main>
+<script src="js/config.js"></script><script src="js/questions.js"></script><script src="js/app.js"></script>
+</body></html>

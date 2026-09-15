@@ -14,6 +14,11 @@ const esc = s =>
 
 let selected = null;
 
+
+/* =========================
+   LOGIN
+   ========================= */
+
 document.getElementById("loginForm").onsubmit = async e => {
   e.preventDefault();
 
@@ -39,6 +44,10 @@ async function signout() {
   location.reload();
 }
 
+
+/* =========================
+   LOAD CANDIDATES
+   ========================= */
 
 async function load() {
 
@@ -125,6 +134,10 @@ async function load() {
 }
 
 
+/* =========================
+   CANDIDATE DETAIL
+   ========================= */
+
 async function detail(id) {
 
   const {
@@ -160,6 +173,7 @@ async function detail(id) {
   const openBreakdown =
     b.open_breakdown || {};
 
+
   let h = `
     <small>CANDIDATE DETAIL</small>
 
@@ -192,6 +206,261 @@ async function detail(id) {
       </strong>
     </div>
 
+    <hr>
+
+    <h3>Multiple Choice Questions</h3>
+  `;
+
+
+  /* =========================
+     MULTIPLE CHOICE QUESTIONS
+     ========================= */
+
+  const mcQuestions = [
+    {
+      id: "Q01",
+      max: 3,
+      options: [
+        "INNER JOIN",
+        "LEFT JOIN",
+        "CROSS JOIN",
+        "SELF JOIN"
+      ],
+      correct: 1
+    },
+
+    {
+      id: "Q02",
+      max: 3,
+      options: [
+        "ADD INDEX",
+        "BUILD INDEX",
+        "CREATE INDEX",
+        "NEW INDEX"
+      ],
+      correct: 2
+    },
+
+    {
+      id: "Q03",
+      max: 3,
+      options: [
+        "Encrypt data",
+        "Reduce database size",
+        "Improve query performance",
+        "Delete duplicate data"
+      ],
+      correct: 2
+    },
+
+    {
+      id: "Q04",
+      max: 3,
+      options: [
+        "GROUP BY",
+        "UNIQUE",
+        "DISTINCT",
+        "DIFFERENT"
+      ],
+      correct: 2
+    },
+
+    {
+      id: "Q07",
+      max: 2,
+      options: [
+        "TOTAL",
+        "SUM",
+        "COUNT",
+        "RECORDS"
+      ],
+      correct: 2
+    },
+
+    {
+      id: "Q09",
+      max: 3,
+      options: [
+        "A variable",
+        "A blueprint for creating objects",
+        "A database table",
+        "A namespace"
+      ],
+      correct: 1
+    },
+
+    {
+      id: "Q11",
+      max: 3,
+      options: [
+        "IMPLEMENT",
+        "EXTEND",
+        "INHERIT",
+        ":"
+      ],
+      correct: 3
+    },
+
+    {
+      id: "Q12",
+      max: 3,
+      options: [
+        "Improving network speed",
+        "Handling runtime errors",
+        "Creating reports",
+        "Managing memory"
+      ],
+      correct: 1
+    },
+
+    {
+      id: "Q13",
+      max: 3,
+      options: [
+        "IF ELSE",
+        "TRY CATCH",
+        "SWITCH",
+        "FOREACH"
+      ],
+      correct: 1
+    },
+
+    {
+      id: "Q21",
+      max: 3,
+      options: [
+        "A100=1, A200=1",
+        "A100=3, A200=1",
+        "A100=4",
+        "Error"
+      ],
+      correct: 1
+    },
+
+    {
+      id: "Q22",
+      max: 4,
+      options: [
+        "A100, A300",
+        "A200 only",
+        "A200, A400",
+        "All records"
+      ],
+      correct: 2
+    },
+
+    {
+      id: "Q23",
+      max: 4,
+      options: [
+        "Material was scanned correctly at UNLOAD",
+        "Material was generated correctly",
+        "Material was not scanned at UNLOAD",
+        "ERP confirmation was successful"
+      ],
+      correct: 2
+    },
+
+    {
+      id: "Q24",
+      max: 4,
+      options: [
+        "User Master",
+        "Production Log / Scan History",
+        "Printer Configuration",
+        "Work Schedule"
+      ],
+      correct: 1
+    },
+
+    {
+      id: "Q25",
+      max: 3,
+      options: [
+        "Barcode was duplicated",
+        "Barcode was deleted by SQL Server",
+        "Material was not processed or scanned at UNLOAD",
+        "Network cable is disconnected"
+      ],
+      correct: 2
+    },
+
+    {
+      id: "Q26",
+      max: 3,
+      options: [
+        "WHERE ScanDate = CAST(GETDATE() AS DATE)",
+        "WHERE ScanDate >= CAST(GETDATE() AS DATE) AND ScanDate < DATEADD(DAY,1,CAST(GETDATE() AS DATE))",
+        "WHERE ScanDate = GETDATE()",
+        "WHERE ScanDate LIKE '%TODAY%'"
+      ],
+      correct: 1
+    },
+
+    {
+      id: "Q27",
+      max: 3,
+      options: [
+        "Display the oldest successful transactions",
+        "Display the latest interface errors",
+        "Delete failed transactions",
+        "Generate new interface records"
+      ],
+      correct: 1
+    }
+  ];
+
+
+  mcQuestions.forEach(q => {
+
+    const selectedAnswer =
+      Number(data.answers?.[q.id]);
+
+    const isCorrect =
+      selectedAnswer === q.correct;
+
+    const points =
+      isCorrect ? q.max : 0;
+
+    const selectedText =
+      q.options[selectedAnswer] ??
+      "[No answer]";
+
+    const correctText =
+      q.options[q.correct];
+
+    h += `
+      <div class="review">
+
+        <h3>
+          ${q.id} —
+          ${points}/${q.max}
+          —
+          <strong>
+            ${isCorrect ? "CORRECT" : "INCORRECT"}
+          </strong>
+        </h3>
+
+        <p>
+          <strong>Your answer:</strong>
+          ${esc(selectedText)}
+        </p>
+
+        <p>
+          <strong>Correct answer:</strong>
+          ${esc(correctText)}
+        </p>
+
+      </div>
+    `;
+  });
+
+
+  /* =========================
+     OPEN QUESTIONS
+     ========================= */
+
+  h += `
     <hr>
 
     <h3>Open Question Scores</h3>
@@ -227,8 +496,7 @@ async function detail(id) {
       <div class="review">
 
         <h3>
-          ${q}
-          —
+          ${q} —
           ${result}/${max}
         </h3>
 
@@ -249,11 +517,12 @@ async function detail(id) {
     </h3>
 
     <p>
-      The open questions were evaluated
-      automatically using bilingual
-      technical concepts and the predefined rubric.
+      Open questions were evaluated automatically
+      using bilingual technical concepts and the
+      predefined technical rubric.
     </p>
   `;
+
 
   detailEl.innerHTML = h;
   detailEl.classList.remove("hidden");

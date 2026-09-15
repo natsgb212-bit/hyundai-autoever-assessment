@@ -1,4 +1,4 @@
-const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+hay mconst sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 let selected=null;
 document.getElementById("loginForm").onsubmit=async e=>{e.preventDefault();const {error}=await sb.auth.signInWithPassword({email:hrEmail.value,password:hrPassword.value});if(error){loginMsg.textContent=error.message;return}login.classList.add("hidden");dash.classList.remove("hidden");load()};
